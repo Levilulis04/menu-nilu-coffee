@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\KitchenController;
+use App\Http\Controllers\CashierController;
 
 
 Route::get('/', function () {
@@ -36,6 +37,13 @@ Route::get('/admin/qr-preview', [adminController::class, 'showQrPreview'])->name
 
 Route::get('/admin/tables', [adminController::class, 'showTableStatus'])->name('admin.tables');
 Route::put('/admin/tables/status/{table_number}', [adminController::class, 'updateTableStatus'])->name('tables.updateStatus');
+
+Route::get('/admin/cashier/data', [CashierController::class, 'getData'])->name('admin.cashier.data');
+Route::get('/admin/cashier', [CashierController::class, 'index'])->name('admin.cashier');
+Route::get('/admin/cashier/{table_number}', [CashierController::class, 'show'])->name('admin.cashier.show');
+Route::post('/admin/cashier/{table_number}/pay', [CashierController::class, 'pay'])->name('admin.cashier.pay');
+Route::get('/admin/cashier/{table_number}/receipt', [CashierController::class, 'receipt'])->name('admin.cashier.receipt');
+
 
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('user.cart.add');
 Route::get('/cart', [CartController::class, 'showCart'])->name('user.cart.show');
