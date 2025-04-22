@@ -48,6 +48,7 @@ class menuController extends Controller
             ->pluck('category');
     
         return view('user.menu', [
+            'token' => $token,
             'menus' => $menus,
             'categories' => $categories,
             'table_number' => $table_number,

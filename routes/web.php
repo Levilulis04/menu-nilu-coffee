@@ -5,6 +5,10 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\menuController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StatusController;
+use App\Http\Controllers\KitchenController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,7 +37,21 @@ Route::get('/admin/qr-preview', [adminController::class, 'showQrPreview'])->name
 Route::get('/admin/tables', [adminController::class, 'showTableStatus'])->name('admin.tables');
 Route::put('/admin/tables/status/{table_number}', [adminController::class, 'updateTableStatus'])->name('tables.updateStatus');
 
-Route::post('/cart/add', [CartController::class, 'add'])->name('user.cart.add');
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('user.cart.add');
+Route::get('/cart', [CartController::class, 'showCart'])->name('user.cart.show');
+Route::post('/cart/delete', [CartController::class, 'delete'])->name('user.cart.delete');
+
+Route::post('/order/create', [OrderController::class, 'create'])->name('user.order.create');
+
+Route::get('/status', [StatusController::class, 'index'])->name('user.status');
+
+Route::get('/kitchen', [KitchenController::class, 'dashboard'])->name('kitchen.dashboard');
+Route::get('/kitchen/orders', [KitchenController::class, 'fetchOrders'])->name('kitchen.orders');
+Route::post('/kitchen/update-status', [KitchenController::class, 'updateStatus'])->name('kitchen.updateStatus');
+
+
+
+
 
 
 

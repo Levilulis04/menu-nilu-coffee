@@ -28,6 +28,10 @@
 </style>
 
 @section('content')
+    @if(session('success'))
+        <div class="alert alert-success" id="success-alert">{{ session('success') }}</div>
+    @endif
+
 <div class="px-3 pt-3">
     <h4 class="mb-3">Nilu Coffee</h4>
 
@@ -70,7 +74,7 @@
 
                 <div class="modal fade" id="addToCartModal{{ $menu->id }}" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                        <form action="{{ route('user.cart.add') }}" method="POST" class="w-100">
+                        <form action="{{ route('user.cart.add', ['token' => request('token')]) }}" method="POST" class="w-100">
                             @csrf
                             <input type="hidden" name="menu_id" value="{{ $menu->id }}">
                             <input type="hidden" name="table_number" value="{{ $table_number }}">
@@ -124,6 +128,18 @@
         }
     }
 </script>
+
+<script>
+    setTimeout(function() {
+        const alert = document.getElementById('success-alert');
+        if (alert) {
+            alert.style.transition = 'opacity 0.5s';
+            alert.style.opacity = '0';
+            setTimeout(() => alert.remove(), 500);
+        }
+    }, 3000);
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 @endsection

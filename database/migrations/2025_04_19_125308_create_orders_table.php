@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('table_number'); 
             $table->integer('queue_number'); 
             $table->enum('status', ['waiting', 'served'])->default('waiting');
+            $table->boolean('is_paid')->default(false);
             $table->timestamps();
         });
     }

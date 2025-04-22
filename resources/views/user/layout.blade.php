@@ -78,7 +78,7 @@
 
         <div class="nav-bottom">
             <!-- Menu -->
-            <a href="{{ route('user.menu') }}" class="{{ request()->routeIs('user.menu') ? 'active' : '' }}">
+            <a href="{{ route('user.menu', ['token' => $token]) }}" class="{{ request()->routeIs('user.menu') ? 'active' : '' }}">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      fill="{{ request()->routeIs('user.menu') ? 'black' : 'none' }}"
                      viewBox="0 0 16 16" stroke="currentColor" stroke-width="0.5">
@@ -88,7 +88,7 @@
             </a>        
 
             <!-- Keranjang -->
-            <a href="{{ route('user.cart') }}" class="{{ request()->routeIs('user.cart') ? 'active' : '' }}">
+            <a href="{{ route('user.cart.show', ['token' => $token]) }}" class="{{ request()->routeIs('user.cart.show') ? 'active' : '' }}">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      fill="{{ request()->routeIs('user.cart') ? 'black' : 'none' }}"
                      viewBox="0 0 16 16" stroke="currentColor" stroke-width="0.5">
@@ -98,7 +98,7 @@
             </a>        
 
             <!-- Status -->
-            <a href="{{ route('user.status') }}" class="{{ request()->routeIs('user.status') ? 'active' : '' }}">
+            <a href="{{ route('user.status', ['token' => $token]) }}" class="{{ request()->routeIs('user.status') ? 'active' : '' }}">
                 <svg xmlns="http://www.w3.org/2000/svg"
                      fill="{{ request()->routeIs('user.status') ? 'black' : 'none' }}"
                      viewBox="0 0 16 16" stroke="currentColor" stroke-width="0.5">
