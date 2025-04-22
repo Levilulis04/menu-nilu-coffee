@@ -88,9 +88,7 @@ function updateStatus(orderId, status) {
     .then(() => fetchOrders());
 }
 
-// Initial load
 fetchOrders();
-// Refresh every 5 seconds
 setInterval(fetchOrders, 5000);
 </script>
 @endsection
