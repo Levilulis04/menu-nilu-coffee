@@ -11,6 +11,7 @@ class menuController extends Controller
     public function showMenu(Request $request)
     {
         $token = $request->query('token');
+        $category = $request->query('category');
     
         if (!$token) {
             abort(404, 'Token tidak ditemukan');
@@ -32,12 +33,26 @@ class menuController extends Controller
             abort(403, 'QR ini sudah tidak aktif');
         }
     
-        // Lanjut ke tampilan menu
-        $menus = DB::table('menus')->where('is_available', 1)->get();
+        // Ambil menu yang tersedia dan filter berdasarkan kategori jika ada
+        $query = DB::table('menus')->where('is_available', 1);
+        if ($category) {
+            $query->where('category', $category);
+        }
+        $menus = $query->get();
+    
+        // Ambil semua kategori unik
+        $categories = DB::table('menus')
+            ->where('is_available', 1)
+            ->select('category')
+            ->distinct()
+            ->pluck('category');
     
         return view('user.menu', [
             'menus' => $menus,
-            'table_number' => $table_number
+            'categories' => $categories,
+            'table_number' => $table_number,
+            'selected_category' => $category, // kirim juga kategori terpilih ke view
         ]);
     }
+    
 }

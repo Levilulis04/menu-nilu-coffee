@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\menuController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,6 +32,9 @@ Route::get('/admin/qr-preview', [adminController::class, 'showQrPreview'])->name
 
 Route::get('/admin/tables', [adminController::class, 'showTableStatus'])->name('admin.tables');
 Route::put('/admin/tables/status/{table_number}', [adminController::class, 'updateTableStatus'])->name('tables.updateStatus');
+
+Route::post('/cart/add', [CartController::class, 'add'])->name('user.cart.add');
+
 
 
 

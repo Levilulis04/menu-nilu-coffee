@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Niku Coffee</title>
+    <title>Nilu Coffee</title>
 </head>
 <body>
 

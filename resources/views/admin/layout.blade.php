@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Niku</title>
+  <title>Admin Nilu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -68,7 +68,7 @@
 
   <!-- Navbar with toggle -->
   <div class="navbar-niku d-flex justify-content-between align-items-center">
-    <h4><span id="sidebarToggle" class="rotate">Niku</span></h4>
+    <h4><span id="sidebarToggle" class="rotate">Nilu</span></h4>
     <span id="datetime" class="text-muted small"></span>
   </div>
 
@@ -77,7 +77,7 @@
     <br><br>
     <nav class="nav flex-column mt-4">
       <a class="nav-link" href="/admin/cashier">Cashier</a>
-      <a class="nav-link" href="/admin/menus">Menu Niku</a>
+      <a class="nav-link" href="/admin/menus">Menu Nilu</a>
       <a class="nav-link" href="#">Laporan Penjualan</a>
       <a class="nav-link" href="/admin/qr">Membuat QR</a>
       <a class="nav-link" href="/admin/tables">Status Meja</a>
@@ -102,7 +102,7 @@
       toggleTrigger.innerHTML = '&#9776;'; // ☰
       toggleTrigger.classList.add('rotate-anim');
     } else {
-      toggleTrigger.innerText = 'Niku';
+      toggleTrigger.innerText = 'Nilu';
       toggleTrigger.classList.remove('rotate-anim');
     }
   });
