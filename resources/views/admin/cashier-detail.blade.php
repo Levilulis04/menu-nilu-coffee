@@ -5,35 +5,35 @@
 
 <div class="mb-3">
     <h5>Pesanan:</h5>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Menu</th>
-                <th>Qty</th>
-                <th>Harga Satuan</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-                $subtotal = 0;
-            @endphp
-            @foreach($orders as $order)
-                @foreach($order->items as $item)
-                    @php
-                        $itemSubtotal = $item->quantity * $item->menu->price;
-                        $subtotal += $itemSubtotal;
-                    @endphp
-                    <tr>
-                        <td>{{ $item->menu->name }}</td>
-                        <td>{{ $item->quantity }}</td>
-                        <td>Rp {{ number_format($item->menu->price, 0, ',', '.') }}</td>
-                        <td>Rp {{ number_format($itemSubtotal, 0, ',', '.') }}</td>
-                    </tr>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Menu</th>
+                    <th>Qty</th>
+                    <th>Harga Satuan</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $subtotal = 0; @endphp
+                @foreach($orders as $order)
+                    @foreach($order->items as $item)
+                        @php
+                            $itemSubtotal = $item->quantity * $item->menu->price;
+                            $subtotal += $itemSubtotal;
+                        @endphp
+                        <tr>
+                            <td>{{ $item->menu->name }}</td>
+                            <td>{{ $item->quantity }}</td>
+                            <td>Rp {{ number_format($item->menu->price, 0, ',', '.') }}</td>
+                            <td>Rp {{ number_format($itemSubtotal, 0, ',', '.') }}</td>
+                        </tr>
+                    @endforeach
                 @endforeach
-            @endforeach
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 @php
@@ -49,11 +49,72 @@
     <h4>Total: <strong>Rp {{ number_format($total, 0, ',', '.') }}</strong></h4>
 </div>
 
-<div class="d-flex gap-2">
-    <form method="POST" action="{{ route('admin.cashier.pay', ['table_number' => $tableNumber]) }}">
-        @csrf
-        <button type="submit" class="btn btn-success">Bayar</button>
-    </form>
-    <a href="{{ route('admin.cashier.receipt', ['table_number' => $tableNumber]) }}" class="btn btn-secondary">Generate Receipt</a>
+@if (!$isPaid)
+    <div id="payment-buttons" class="d-flex gap-2">
+        <form method="POST" action="{{ route('admin.cashier.pay', ['table_number' => $tableNumber]) }}">
+            @csrf
+            <button type="submit" class="btn btn-primary">Bayar Non Tunai</button>
+        </form>
+
+        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#tunaiModal">Bayar Tunai</button>
+    </div>
+@else
+    <div class="mt-3">
+        <form method="POST" action="{{ route('admin.cashier.receipt.store', ['table_number' => $tableNumber]) }}">
+            @csrf
+            <button type="submit" class="btn btn-secondary">Cetak Receipt</button>
+        </form>
+    </div>
+@endif
+
+<!-- Modal Tunai -->
+<div class="modal fade" id="tunaiModal" tabindex="-1" aria-labelledby="tunaiModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Pembayaran Tunai</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Total: <strong>Rp {{ number_format($total, 0, ',', '.') }}</strong></p>
+                <div class="mb-3">
+                    <label class="form-label">Uang Pelanggan</label>
+                    <input type="number" class="form-control" id="uang-pelanggan" placeholder="Masukkan nominal">
+                </div>
+                <div id="tunai-info" class="d-none">
+                    <p>Uang Diterima: <strong id="uang-diterima"></strong></p>
+                    <p>Kembalian: <strong id="kembalian"></strong></p>
+                    <form method="POST" action="{{ route('admin.cashier.pay', ['table_number' => $tableNumber]) }}">
+                        @csrf
+                        <button type="submit" id="btn-cetak-receipt" class="btn btn-success mt-2">Bayar & Cetak Receipt</button>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-bayar-tunai" class="btn btn-success">Bayar</button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    document.getElementById('btn-bayar-tunai').addEventListener('click', function () {
+        const total = {{ (int) $total }};
+        const input = document.getElementById('uang-pelanggan');
+        const uang = parseInt(input.value);
+
+        if (!isNaN(uang) && uang >= total) {
+            const kembalian = uang - total;
+            document.getElementById('uang-diterima').textContent = `Rp ${uang.toLocaleString('id-ID')}`;
+            document.getElementById('kembalian').textContent = `Rp ${kembalian.toLocaleString('id-ID')}`;
+            document.getElementById('tunai-info').classList.remove('d-none');
+
+            document.getElementById('btn-bayar-tunai').classList.add('d-none');
+            document.getElementById('payment-buttons').classList.add('d-none');
+        } else {
+            alert('Nominal uang tidak mencukupi.');
+        }
+    });
+</script>
+
 @endsection

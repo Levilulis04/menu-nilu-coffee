@@ -17,6 +17,8 @@ return new class extends Migration
             $table->integer('queue_number'); 
             $table->enum('status', ['waiting', 'served'])->default('waiting');
             $table->boolean('is_paid')->default(false);
+            $table->unsignedBigInteger('receipt_id')->nullable();
+            $table->foreign('receipt_id')->references('id')->on('receipts')->onDelete('set null');
             $table->timestamps();
         });
     }

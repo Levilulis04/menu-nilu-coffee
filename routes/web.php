@@ -41,7 +41,7 @@ Route::put('/admin/tables/status/{table_number}', [adminController::class, 'upda
 Route::get('/admin/cashier/data', [CashierController::class, 'getData'])->name('admin.cashier.data');
 Route::get('/admin/cashier', [CashierController::class, 'index'])->name('admin.cashier');
 Route::get('/admin/cashier/{table_number}', [CashierController::class, 'show'])->name('admin.cashier.show');
-Route::post('/admin/cashier/{table_number}/pay', [CashierController::class, 'pay'])->name('admin.cashier.pay');
+Route::post('/admin/cashier/{table_number}/pay', [CashierController::class, 'payBill'])->name('admin.cashier.pay');
 Route::get('/admin/cashier/{table_number}/receipt', [CashierController::class, 'receipt'])->name('admin.cashier.receipt');
 
 
@@ -58,6 +58,7 @@ Route::get('/kitchen/orders', [KitchenController::class, 'fetchOrders'])->name('
 Route::post('/kitchen/update-status', [KitchenController::class, 'updateStatus'])->name('kitchen.updateStatus');
 
 
+Route::post('/admin/cashier/{table_number}/receipt', [CashierController::class, 'storeReceipt'])->name('admin.cashier.receipt.store');
 
 
 
