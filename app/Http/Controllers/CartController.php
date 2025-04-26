@@ -17,9 +17,9 @@ class CartController extends Controller
             'menu_id' => 'required|exists:menus,id',
             'table_number' => 'required|integer',
         ]);
-
+    
         $token = $request->query('token');
-
+    
         if (!$token) {
             return abort(404, 'Token tidak ditemukan');
         }
@@ -29,12 +29,22 @@ class CartController extends Controller
         } catch (\Exception $e) {
             return abort(403, 'Token tidak valid');
         }
-
-        $existing = DB::table('carts')
-            ->where('table_number', $request->table_number)
-            ->where('menu_id', $request->menu_id)
+    
+        $table = \App\Models\Table::where('table_number', $table_number)
+            ->where('is_active', 1)
+            ->orderByDesc('id')
             ->first();
-
+    
+        if (!$table) {
+            return abort(403, 'Meja sudah tidak aktif');
+        }
+    
+        $existing = DB::table('carts')
+            ->where('table_number', $table_number)
+            ->where('menu_id', $request->menu_id)
+            ->where('created_at', '>=', $table->created_at)
+            ->first();
+    
         if ($existing) {
             DB::table('carts')->where('id', $existing->id)->update([
                 'quantity' => $existing->quantity + $request->quantity,
@@ -43,7 +53,7 @@ class CartController extends Controller
             ]);
         } else {
             DB::table('carts')->insert([
-                'table_number' => $request->table_number,
+                'table_number' => $table_number,
                 'menu_id' => $request->menu_id,
                 'quantity' => $request->quantity,
                 'note' => $request->note,
@@ -51,27 +61,38 @@ class CartController extends Controller
                 'updated_at' => now(),
             ]);
         }
+    
         return back()->with('success', 'Item ditambahkan ke keranjang!');
     }
 
     public function showCart(Request $request)
     {
         $token = $request->query('token');
-
+    
         if (!$token) {
             return abort(404, 'Token tidak ditemukan');
         }
-
+    
         try {
             $table_number = Crypt::decrypt($token);
         } catch (\Exception $e) {
             return abort(403, 'Token tidak valid');
         }
-
-        $cartItems = Cart::with('menu')
+    
+        $table = \App\Models\Table::where('table_number', $table_number)
+            ->where('is_active', 1)
+            ->orderByDesc('id')
+            ->first();
+    
+        if (!$table) {
+            return abort(403, 'Pesanan untuk meja ini sudah tidak aktif');
+        }
+    
+        $cartItems = \App\Models\Cart::with('menu')
             ->where('table_number', $table_number)
+            ->where('created_at', '>=', $table->created_at)
             ->get();
-
+    
         return view('user.cart', [
             'cartItems' => $cartItems,
             'table_number' => $table_number,
