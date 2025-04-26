@@ -107,6 +107,9 @@ class CashierController extends Controller
             ->where('is_paid', 0)
             ->update(['is_paid' => 1]);
 
+        \App\Models\Table::where('table_number', $table_number)
+        ->update(['is_active' => 0]);
+
         return redirect()->route('admin.cashier.show', ['table_number' => $table_number])
             ->with('success', 'Pembayaran berhasil diproses.');
     }
