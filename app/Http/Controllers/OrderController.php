@@ -58,6 +58,6 @@ class OrderController extends Controller
 
         DB::table('carts')->where('table_number', $table_number)->delete(); 
 
-        return redirect()->route('user.menu', ['token' => $token])->with('success', 'Pesanan berhasil dibuat!');
+        return redirect()->route('user.status', ['token' => $token])->with('success', 'Pesanan berhasil dibuat!');
     }
 }

@@ -16,8 +16,8 @@ Route::get('/', function () {
 });
 
 Route::get('/menu', [menuController::class, 'showMenu'])->name('user.menu');
-Route::get('/status', [menuController::class, 'showMenu'])->name('user.status');
-Route::get('/statuss', [menuController::class, 'showMenus'])->name('user.cart');
+//Route::get('/status', [menuController::class, 'showMenu'])->name('user.status');
+//Route::get('/statuss', [menuController::class, 'showMenus'])->name('user.cart');
 
 
 Route::get('/admin/login', [AdminAuthController::class, 'getLoginAdmin'])->name('admin.login.form');
