@@ -46,7 +46,7 @@ class AdminAuthController extends Controller
 
        if (auth()->attempt($credentials)) {
            $request->session()->regenerate();
-           return redirect()->intended('/admin');
+           return redirect()->intended('/admin/menus');
        }
 
        return back()->with('error', 'Email atau password salah')->withInput();
