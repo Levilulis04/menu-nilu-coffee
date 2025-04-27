@@ -22,7 +22,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">Meja ${table.table_number}</h5>
                                 <p>Total: <strong>Rp ${new Intl.NumberFormat('id-ID').format(table.total)}</strong></p>
-                                <a href="/admin/cashier/${table.table_number}" class="btn btn-outline-dark btn-sm w-100">Detail</a>
+                                <a href="/admin/cashier/${table.table_number}" class="btn w-100" style="background-color:#0E8636 !important; color:white;">Detail</a>
                             </div>
                         </div>
                     `;

@@ -19,6 +19,12 @@
         right: 20px;
         z-index: 9999;
     }
+
+    .btn-primary{
+        background-color: #0E8636 !important;
+        border-style:none;
+    }
+
   </style>
 </head>
 <body>

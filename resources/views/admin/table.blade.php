@@ -1,6 +1,12 @@
 @extends('admin.layout')
 
 @section('content')
+
+<style>
+.bg-dark{
+    background-color: #0E8636 !important;
+}
+</style>
 <h2>Status Meja</h2>
 
 <div class="row row-cols-5 g-3 mt-4">

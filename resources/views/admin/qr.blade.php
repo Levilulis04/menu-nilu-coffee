@@ -16,7 +16,7 @@
     <br>
     <p style="font-size:10px;" class="text-muted">Link: <a href="{{ $url }}" target="_blank">{{ $url }}</a></p>
 
-    <button onclick="window.print()" class="btn btn-outline-dark mt-3">Print QR</button>
+    <button onclick="window.print()" class="btn" style="background-color:#0E8636 !important; color:white;">Print QR</button>
   </div>
 @else
   <form action="{{ route('admin.qr.preview') }}" method="GET" class="mt-4">
@@ -29,7 +29,7 @@
           @endfor
       </select>
     </div>
-    <button type="submit" class="btn btn-outline-dark">Generate QR</button>
+    <button type="submit" class="btn" style="background-color:#0E8636 !important; color:white;">Buat QR</button>
   </form>
 @endif
 

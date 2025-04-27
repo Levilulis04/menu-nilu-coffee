@@ -63,7 +63,7 @@
 
     <br>
     <div class="d-flex gap-2">
-      <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+      <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
       <a href="{{ route('menus.index') }}" class="btn btn-secondary">Kembali</a>
     </div>
   </form>

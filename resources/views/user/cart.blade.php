@@ -22,8 +22,8 @@
                     $totalPrice = $item->quantity * $item->menu->price;
                     $grandTotal += $totalPrice;
                 @endphp
-                <div class="list-group-item">
-                    <div class="d-flex justify-content-between align-items-center">
+                <div class="list-group-item" style="background-color:#EFEFEF">
+                    <div class="d-flex justify-content-between align-items-center" style="background-color:#EFEFEF">
                         <div>
                             <strong>{{ $item->menu->name }}</strong><br>
                             <small>{{ $item->quantity }} x Rp {{ number_format($item->menu->price, 0, ',', '.') }}</small>

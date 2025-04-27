@@ -16,7 +16,7 @@ class KitchenController extends Controller
     {
         $orders = Order::with(['items.menu'])
             ->orderBy('queue_number')
-            ->whereIn('status', ['waiting', 'served']) // atau 'processing'
+            ->whereIn('status', ['Menunggu', 'Selesai']) // atau 'processing'
             ->get();
     
         return response()->json($orders);
@@ -26,7 +26,7 @@ class KitchenController extends Controller
     {
         $request->validate([
             'order_id' => 'required|exists:orders,id',
-            'status' => 'required|in:waiting,served',
+            'status' => 'required|in:Menunggu,Selesai',
         ]);
     
         Order::where('id', $request->order_id)->update(['status' => $request->status]);

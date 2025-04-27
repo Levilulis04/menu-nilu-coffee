@@ -16,7 +16,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Lanjutkan pesanan ini sebagai <strong>Served</strong>?
+                Lanjutkan pesanan ini sebagai <strong>Selesai</strong>?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -36,11 +36,11 @@ function fetchOrders() {
             const container = document.getElementById('order-container');
             container.innerHTML = '';
 
-            data.filter(order => order.status !== 'served').forEach(order => {
+            data.filter(order => order.status !== 'Selesai').forEach(order => {
                 const card = document.createElement('div');
                 card.className = 'col-md-4';
                 card.innerHTML = `
-                    <div class="card shadow-sm h-100" data-order-id="${order.id}" onclick="confirmServe(${order.id})">
+                    <div class="card h-100" data-order-id="${order.id}" onclick="confirmServe(${order.id})" style="background-color: #EFEFEF; color:black">
                         <div class="card-body">
                             <h5 class="card-title">Meja ${order.table_number} - Antrian #${order.queue_number}</h5>
                             <p>Status: <strong>${order.status.charAt(0).toUpperCase() + order.status.slice(1)}</strong></p>
@@ -68,7 +68,7 @@ function confirmServe(orderId) {
 
 document.getElementById('confirmServeBtn').addEventListener('click', function () {
     if (pendingServeId) {
-        updateStatus(pendingServeId, 'served');
+        updateStatus(pendingServeId, 'Selesai');
         const modal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
         modal.hide();
         pendingServeId = null;

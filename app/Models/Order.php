@@ -10,6 +10,8 @@ class Order extends Model
         'table_number',
         'queue_number',
         'status',
+        'is_paid',
+        'receipt_id'
     ];
 
     public function items()

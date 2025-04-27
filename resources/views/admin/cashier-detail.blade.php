@@ -1,18 +1,25 @@
 @extends('admin.layout')
 
 @section('content')
+
+@if(session('receipt_id'))
+    <script>
+        window.open('{{ route('admin.receipt.show', ['receipt' => session('receipt_id')]) }}', '_blank');
+    </script>
+@endif
+
 <h2 class="mb-4">Detail Pembayaran - Meja {{ $tableNumber }}</h2>
 
 <div class="mb-3">
     <h5>Pesanan:</h5>
     <div class="table-responsive">
         <table class="table table-striped table-hover">
-            <thead class="table-dark">
+            <thead class="">
                 <tr>
-                    <th>Menu</th>
-                    <th>Qty</th>
-                    <th>Harga Satuan</th>
-                    <th>Subtotal</th>
+                    <th style="background-color:#0E8636 !important; color:white;">Menu</th>
+                    <th style="background-color:#0E8636 !important; color:white;">Qty</th>
+                    <th style="background-color:#0E8636 !important; color:white;">Harga Satuan</th>
+                    <th style="background-color:#0E8636 !important; color:white;">Subtotal</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,16 +60,16 @@
     <div id="payment-buttons" class="d-flex gap-2">
         <form method="POST" action="{{ route('admin.cashier.pay', ['table_number' => $tableNumber]) }}">
             @csrf
-            <button type="submit" class="btn btn-primary">Bayar Non Tunai</button>
+            <button type="submit" class="btn" style="background-color:#0E8636 !important; color:white;">Bayar Non Tunai</button>
         </form>
 
-        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#tunaiModal">Bayar Tunai</button>
+        <button class="btn" data-bs-toggle="modal" data-bs-target="#tunaiModal" style="background-color:#0E8636 !important; color:white;">Bayar Tunai</button>
     </div>
 @else
     <div class="mt-3">
         <form method="POST" action="{{ route('admin.cashier.receipt.store', ['table_number' => $tableNumber]) }}">
             @csrf
-            <button type="submit" class="btn btn-secondary">Cetak Receipt</button>
+            <button type="submit" class="btn" style="background-color:#0E8636 !important; color:white;">Cetak Receipt</button>
         </form>
     </div>
 @endif
@@ -91,7 +98,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btn-bayar-tunai" class="btn btn-success">Bayar</button>
+                <button type="button" id="btn-bayar-tunai" class="btn" style="background-color:#0E8636 !important; color:white;">Bayar</button>
             </div>
         </div>
     </div>
@@ -116,5 +123,6 @@
         }
     });
 </script>
+
 
 @endsection

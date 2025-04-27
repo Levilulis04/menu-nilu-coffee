@@ -40,7 +40,7 @@ class OrderController extends Controller
         $order_id = DB::table('orders')->insertGetId([
             'table_number' => $table_number,
             'queue_number' => $queue_number,
-            'status' => 'waiting',
+            'status' => 'Menunggu',
             'created_at' => now(),
             'updated_at' => now(),
         ]); 

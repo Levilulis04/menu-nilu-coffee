@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\adminController;
@@ -9,11 +11,16 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\StatusController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\CashierController;
+use App\Http\Controllers\AdminReceiptController;
+use App\Http\Controllers\ReportController;
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/logout', function () {
+    Auth::logout(); // Logout user
+    Session::flush(); // Bersihkan semua data session
+    return redirect('/admin/login')->with('success', 'Berhasil logout!');
+})->name('logout');
+
 
 Route::get('/menu', [menuController::class, 'showMenu'])->name('user.menu');
 //Route::get('/status', [menuController::class, 'showMenu'])->name('user.status');
@@ -59,6 +66,11 @@ Route::post('/kitchen/update-status', [KitchenController::class, 'updateStatus']
 
 
 Route::post('/admin/cashier/{table_number}/receipt', [CashierController::class, 'storeReceipt'])->name('admin.cashier.receipt.store');
+
+Route::get('/admin/receipt/{receipt}', [AdminReceiptController::class, 'show'])->name('admin.receipt.show');
+
+Route::get('/admin/report', [ReportController::class, 'index'])->name('admin.report');
+Route::get('/laporan-penjualan/download', [ReportController::class, 'download'])->name('laporan.download');
 
 
 

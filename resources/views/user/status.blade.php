@@ -8,7 +8,7 @@
         <p>Tidak ada pesanan untuk meja ini.</p>
     @else
         @foreach($orders as $order)
-            <div class="mb-3 border rounded p-3">
+            <div class="mb-3 rounded p-3" style="background-color: #EFEFEF; color: black;">
                 <h5>Antrian #{{ $order->queue_number }} dari {{ $maxQueue }}</h5>
                 <p>Status: <strong>{{ ucfirst($order->status) }}</strong></p>
                 <ul class="mb-0">

@@ -17,7 +17,7 @@
       position: fixed;
       top: 0;
       left: 0;
-      background-color: #f8f9fa;
+      background-color: #0E8636;
       padding-top: 1rem;
       box-shadow: 2px 0 10px rgba(0,0,0,0.05);
       transition: all 0.3s ease;
@@ -33,13 +33,16 @@
     .content.expanded {
       margin-left: 0;
     }
+    .nav-link {
+      color: #fff !important;
+    }
+    .nav-link.active {
+      color: #fff !important;
+      font-weight: bold;
+    }
     .sidebar .nav-link {
       color: #333;
       margin: 0.5rem 0;
-    }
-    .sidebar .nav-link:hover {
-      background-color: #e9ecef;
-      border-radius: 8px;
     }
     .navbar-niku {
       background-color: #fff;
@@ -68,7 +71,7 @@
 
   <!-- Navbar with toggle -->
   <div class="navbar-niku d-flex justify-content-between align-items-center">
-    <h4><span id="sidebarToggle" class="rotate">Nilu Kitchen</span></h4>
+    <img src="https://i.ibb.co.com/0p8RTKx2/image-removebg-preview-2.png" width='70' height='30' alt="">
     <span id="datetime" class="text-muted small"></span>
   </div>
 

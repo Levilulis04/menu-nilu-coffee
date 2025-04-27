@@ -15,6 +15,7 @@ class AdminAuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
             'role' => 'required',
+            'name' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -28,6 +29,7 @@ class AdminAuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
+            'name' => $request->name,
         ]);
 
         return response()->json([
