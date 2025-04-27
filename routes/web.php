@@ -16,8 +16,8 @@ use App\Http\Controllers\ReportController;
 
 
 Route::get('/logout', function () {
-    Auth::logout(); // Logout user
-    Session::flush(); // Bersihkan semua data session
+    Auth::logout();
+    Session::flush();
     return redirect('/admin/login')->with('success', 'Berhasil logout!');
 })->name('logout');
 
@@ -74,6 +74,6 @@ Route::get('/laporan-penjualan/download', [ReportController::class, 'download'])
 
 
 
-
-
-
+Route::fallback(function () {
+    return redirect('/admin/login');
+});
