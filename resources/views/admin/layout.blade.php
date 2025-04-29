@@ -82,7 +82,7 @@
     <br><br>
     <nav class="nav flex-column mt-4">
         <a class="nav-link {{ Request::is('admin/cashier') ? 'active' : '' }}" href="/admin/cashier">
-            <i class="fas fa-cash-register {{ Request::is('admin/cashier') ? '' : 'text-muted' }}"></i> &nbsp Cashier
+            <i class="fas fa-cash-register {{ Request::is('admin/cashier') ? '' : 'text-muted' }}"></i> &nbsp Kasir
         </a>
         <a class="nav-link {{ Request::is('admin/menus') ? 'active' : '' }}" href="/admin/menus">
             <i class="fas fa-concierge-bell {{ Request::is('admin/menus') ? '' : 'text-muted' }}"></i> &nbsp Menu Nilu
@@ -97,7 +97,7 @@
             <i class="fas fa-table {{ Request::is('admin/tables') ? '' : 'text-muted' }}"></i> &nbsp Status Meja
         </a>
         <a class="nav-link {{ Request::is('logout') ? 'active' : '' }}" href="/logout">
-            <i class="fas fa-sign-out-alt {{ Request::is('logout') ? '' : 'text-muted' }}"></i> &nbsp Logout
+            <i class="fas fa-sign-out-alt {{ Request::is('logout') ? '' : 'text-muted' }}"></i> &nbsp Keluar
         </a>
     </nav>
   </div>

@@ -84,7 +84,7 @@
             <i class="fas fa-utensils {{ Request::is('kitchen') ? '' : 'text-muted' }}"></i> &nbsp Pesanan Pelanggan
         </a>
         <a class="nav-link {{ Request::is('logout') ? 'active' : '' }}" href="/logout">
-            <i class="fas fa-sign-out-alt {{ Request::is('logout') ? '' : 'text-muted' }}"></i> &nbsp Logout
+            <i class="fas fa-sign-out-alt {{ Request::is('logout') ? '' : 'text-muted' }}"></i> &nbsp Keluar
         </a>
     </nav>
   </div>

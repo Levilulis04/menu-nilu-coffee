@@ -52,9 +52,7 @@
 <body>
 
   <div class="center header">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg" style="width:100px;">
-    <br><br>
-    <p><strong>KAFE NILU</strong></p>
+    <h1 style="font-size:24px;"><strong>KAFE NILU</strong></h1>
     <p>Jl. Sorowajan Baru, Jomblangan, Banguntapan, Bantul, Yogyakarta<br>
     Telp: 0857 4318 5987 | IG: @nilu_sorowajan</p>
     <br>
@@ -62,10 +60,10 @@
   </div>
 
   <p>
-    No Nota: <strong>{{ $receipt->invoice_number }}</strong><br>
-    Tanggal: <strong>{{ \Carbon\Carbon::parse($receipt->paid_at)->format('d/m/Y H:i:s') }}</strong><br>
-    Meja: <strong>{{ $receipt->table_number }}</strong><br>
-    Kasir: <strong>{{ $receipt->cashier_name }}</strong><br>
+    No Nota : {{ $receipt->invoice_number }}<br>
+    Tanggal : {{ \Carbon\Carbon::parse($receipt->paid_at)->format('d/m/Y H:i:s') }}<br>
+    Meja    : {{ $receipt->table_number }}<br>
+    Kasir   : {{ $receipt->cashier_name }}<br>
   </p>
 
   <div class="line"></div>
@@ -101,13 +99,14 @@
   <div class="line"></div>
 
   <div>
-    Pembayaran: <strong>{{ $receipt->payment_type == 'qris' ? 'QRIS' : 'Tunai' }}</strong><br>
+    Pembayaran: {{ $receipt->payment_type == 'qris' ? 'QRIS' : 'Tunai' }}<br>
     @if($receipt->payment_type == 'cash')
-      Uang Diterima: <strong>Rp. {{ number_format($receipt->cash_amount, 0, ',', '.') }}</strong><br>
-      Kembalian: <strong>Rp. {{ number_format($receipt->change, 0, ',', '.') }}</strong><br>
+      Uang Diterima: Rp. {{ number_format($receipt->cash_amount, 0, ',', '.') }}<br>
+      Kembalian: Rp. {{ number_format($receipt->change, 0, ',', '.') }}<br>
     @endif
   </div>
 
+  <div class="line"></div>
   <div class="line"></div>
 
 <div class="footer">
