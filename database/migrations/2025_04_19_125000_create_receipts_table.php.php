@@ -21,6 +21,9 @@ return new class extends Migration
             $table->integer('grand_total');
             $table->string('cashier_name')->default('Levi');
             $table->timestamp('paid_at')->useCurrent();
+            $table->string('payment_type');
+            $table->integer('cash_amount')->nullable();
+            $table->integer('change')->nullable(); 
             $table->timestamps();
         });
     }

@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+
 
 class AdminAuthController extends Controller
 {
@@ -45,12 +47,20 @@ class AdminAuthController extends Controller
     public function login(Request $request)
     {
        $credentials = $request->only('email', 'password');
-
+    
        if (auth()->attempt($credentials)) {
            $request->session()->regenerate();
-           return redirect()->intended('/admin/menus');
+           session(['user_id' => auth()->id()]);
+    
+           $role = DB::table('users')->where('id', auth()->id())->value('role');
+    
+           if ($role === 'kitchen') {
+               return redirect()->intended('/kitchen');
+           } elseif ($role === 'admin') {
+               return redirect()->intended('/admin/cashier');
+           }
        }
-
+    
        return back()->with('error', 'Email atau password salah')->withInput();
     }
 }

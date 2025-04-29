@@ -15,6 +15,9 @@ class Receipt extends Model
         'grand_total',
         'cashier_name',
         'paid_at',
+        'payment_type', 
+        'cash_amount', 
+        'change',       
     ];
 
     protected $dates = ['paid_at'];

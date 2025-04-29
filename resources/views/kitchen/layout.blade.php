@@ -5,6 +5,7 @@
   <title>Kitchen Nilu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   @stack('styles')
   <style>
@@ -13,7 +14,7 @@
     }
     .sidebar {
       height: 100vh;
-      width: 220px;
+      width: 245px;
       position: fixed;
       top: 0;
       left: 0;
@@ -26,7 +27,7 @@
       transform: translateX(-100%);
     }
     .content {
-      margin-left: 220px;
+      margin-left: 245px;
       padding: 2rem;
       transition: margin-left 0.3s ease;
     }
@@ -79,7 +80,12 @@
   <div class="sidebar d-flex flex-column px-3" id="sidebar">
     <br><br>
     <nav class="nav flex-column mt-4">
-      <a class="nav-link" href="/kitchen">Pesanan Pelanggan</a>
+        <a class="nav-link {{ Request::is('kitchen') ? 'active' : '' }}" href="/kitchen">
+            <i class="fas fa-utensils {{ Request::is('kitchen') ? '' : 'text-muted' }}"></i> &nbsp Pesanan Pelanggan
+        </a>
+        <a class="nav-link {{ Request::is('logout') ? 'active' : '' }}" href="/logout">
+            <i class="fas fa-sign-out-alt {{ Request::is('logout') ? '' : 'text-muted' }}"></i> &nbsp Logout
+        </a>
     </nav>
   </div>
 

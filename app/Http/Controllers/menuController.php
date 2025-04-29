@@ -33,14 +33,12 @@ class menuController extends Controller
             abort(403, 'QR ini sudah tidak aktif');
         }
     
-        // Ambil menu yang tersedia dan filter berdasarkan kategori jika ada
         $query = DB::table('menus')->where('is_available', 1);
         if ($category) {
             $query->where('category', $category);
         }
         $menus = $query->get();
     
-        // Ambil semua kategori unik
         $categories = DB::table('menus')
             ->where('is_available', 1)
             ->select('category')
@@ -52,7 +50,7 @@ class menuController extends Controller
             'menus' => $menus,
             'categories' => $categories,
             'table_number' => $table_number,
-            'selected_category' => $category, // kirim juga kategori terpilih ke view
+            'selected_category' => $category, 
         ]);
     }
     

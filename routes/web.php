@@ -27,7 +27,7 @@ Route::get('/menu', [menuController::class, 'showMenu'])->name('user.menu');
 //Route::get('/statuss', [menuController::class, 'showMenus'])->name('user.cart');
 
 
-Route::get('/admin/login', [AdminAuthController::class, 'getLoginAdmin'])->name('admin.login.form');
+Route::get('/login', [AdminAuthController::class, 'getLoginAdmin'])->name('admin.login.form');
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login');
 
 Route::get('/admin/menus', [adminController::class, 'getMenuAdmin'])->name('menus.index');
@@ -75,5 +75,5 @@ Route::get('/laporan-penjualan/download', [ReportController::class, 'download'])
 
 
 Route::fallback(function () {
-    return redirect('/admin/login');
+    return redirect('/login');
 });

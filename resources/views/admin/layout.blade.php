@@ -5,6 +5,8 @@
   <title>Admin Nilu</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 
   @stack('styles')
   <style>
@@ -13,7 +15,7 @@
     }
     .sidebar {
       height: 100vh;
-      width: 220px;
+      width: 235px;
       position: fixed;
       top: 0;
       left: 0;
@@ -26,7 +28,7 @@
       transform: translateX(-100%);
     }
     .content {
-      margin-left: 220px;
+      margin-left: 235px;
       padding: 2rem;
       transition: margin-left 0.3s ease;
     }
@@ -79,12 +81,24 @@
   <div class="sidebar d-flex flex-column px-3" id="sidebar">
     <br><br>
     <nav class="nav flex-column mt-4">
-      <a class="nav-link {{ Request::is('admin/cashier') ? 'active' : '' }}" href="/admin/cashier">Cashier</a>
-      <a class="nav-link {{ Request::is('admin/menus') ? 'active' : '' }}" href="/admin/menus">Menu Nilu</a>
-      <a class="nav-link {{ Request::is('admin/report') ? 'active' : '' }}" href="/admin/report">Laporan Penjualan</a>
-      <a class="nav-link {{ Request::is('admin/qr') ? 'active' : '' }}" href="/admin/qr">Membuat QR</a>
-      <a class="nav-link {{ Request::is('admin/tables') ? 'active' : '' }}" href="/admin/tables">Status Meja</a>
-      <a class="nav-link {{ Request::is('logout') ? 'active' : '' }}" href="/logout">Logout</a>
+        <a class="nav-link {{ Request::is('admin/cashier') ? 'active' : '' }}" href="/admin/cashier">
+            <i class="fas fa-cash-register {{ Request::is('admin/cashier') ? '' : 'text-muted' }}"></i> &nbsp Cashier
+        </a>
+        <a class="nav-link {{ Request::is('admin/menus') ? 'active' : '' }}" href="/admin/menus">
+            <i class="fas fa-concierge-bell {{ Request::is('admin/menus') ? '' : 'text-muted' }}"></i> &nbsp Menu Nilu
+        </a>
+        <a class="nav-link {{ Request::is('admin/report') ? 'active' : '' }}" href="/admin/report">
+            <i class="fas fa-chart-line {{ Request::is('admin/report') ? '' : 'text-muted' }}"></i> &nbsp Laporan Penjualan
+        </a>
+        <a class="nav-link {{ Request::is('admin/qr') ? 'active' : '' }}" href="/admin/qr">
+            <i class="fas fa-qrcode {{ Request::is('admin/qr') ? '' : 'text-muted' }}"></i> &nbsp Membuat QR
+        </a>
+        <a class="nav-link {{ Request::is('admin/tables') ? 'active' : '' }}" href="/admin/tables">
+            <i class="fas fa-table {{ Request::is('admin/tables') ? '' : 'text-muted' }}"></i> &nbsp Status Meja
+        </a>
+        <a class="nav-link {{ Request::is('logout') ? 'active' : '' }}" href="/logout">
+            <i class="fas fa-sign-out-alt {{ Request::is('logout') ? '' : 'text-muted' }}"></i> &nbsp Logout
+        </a>
     </nav>
   </div>
 

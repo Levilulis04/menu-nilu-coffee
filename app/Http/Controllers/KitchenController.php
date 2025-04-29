@@ -4,11 +4,20 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use Illuminate\Support\Facades\DB;
+
 
 class KitchenController extends Controller
 {
     public function dashboard()
     {
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+    
+        if ($role !== 'kitchen') {
+            return redirect('/login');
+        }
         return view('kitchen.dashboard');
     }
     
@@ -24,6 +33,14 @@ class KitchenController extends Controller
     
     public function updateStatus(Request $request)
     {
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+    
+        if ($role !== 'kitchen') {
+            return redirect('/login');
+        }
+        
         $request->validate([
             'order_id' => 'required|exists:orders,id',
             'status' => 'required|in:Menunggu,Selesai',

@@ -13,14 +13,44 @@ use Illuminate\Support\Facades\Crypt;
 class adminController extends Controller
 {
     public function getMenuAdmin(){
+
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         $menus = Menu::all();
         return view('admin.menus', compact('menus'));
     }
     public function getCreateMenuAdmin(){
+
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         return view('admin.create-menus');
     }
 
     public function postCreateMenuAdmin(Request $request){
+
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         $validated = $request->validate([
             'name' => 'required',
             'price' => 'required|integer',
@@ -46,6 +76,16 @@ class adminController extends Controller
 
     public function postUpdateMenuAdmin(Request $request, Menu $menu, $id)
     {   
+
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         if ($request->has('status_only')) {
             //dd($id);
     
@@ -75,6 +115,15 @@ class adminController extends Controller
 
     public function destroy(Menu $menu)
     {
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         if ($menu->image) {
             Storage::disk('public')->delete($menu->image);
         }
@@ -86,6 +135,16 @@ class adminController extends Controller
 
     public function getEditMenuAdmin($id)
     {
+
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         $menu = Menu::findOrFail($id);
         return view('admin.edit-menus', compact('menu'));
     }
@@ -93,6 +152,16 @@ class adminController extends Controller
 
     public function showQrPreview(Request $request)
     {
+
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         $table = $request->query('table_number');
     
         if (!$table) {
@@ -130,12 +199,36 @@ class adminController extends Controller
 
     public function showTableStatus()
     {
-        $tables = DB::table('tables')->get();
+        $userId = session('user_id');
+        
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+        
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+    
+        $tables = DB::table('tables')
+            ->select('table_number', 'is_active', 'created_at')
+            ->where('is_active', 1)
+            ->orderByDesc('created_at')
+            ->get()
+            ->unique('table_number');
+    
         return view('admin.table', compact('tables'));
     }
     
     public function updateTableStatus(Request $request, $table_number)
     {
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+        
         $request->validate([
             'is_active' => 'required|in:0,1',
         ]);

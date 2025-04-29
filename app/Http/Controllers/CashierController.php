@@ -8,16 +8,34 @@ use App\Models\Table;
 use App\Models\Receipt;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 
 class CashierController extends Controller
 {
     public function index()
     {
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         return view('admin.cashier');
     }
 
     public function getData()
     {
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         $orders = Order::where('is_paid', false)
             ->with(['items.menu'])
             ->get()
@@ -46,6 +64,14 @@ class CashierController extends Controller
 
     public function show($table_number)
     {
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         $orders = Order::where('table_number', $table_number)
             ->where('is_paid', 0)
             ->where('status', 'Selesai')
@@ -61,50 +87,16 @@ class CashierController extends Controller
             ]);
     }
 
-    public function storeReceipt($table_number)
-    {
-        $orders = Order::where('table_number', $table_number)
-            ->where('is_paid', false)
-            ->with('items.menu')
-            ->get();
-
-        if ($orders->isEmpty()) {
-            return redirect()->back()->with('error', 'Tidak ada pesanan yang perlu dibayar.');
-        }
-
-        $subtotal = 0;
-        foreach ($orders as $order) {
-            foreach ($order->items as $item) {
-                $subtotal += $item->quantity * $item->menu->price;
-            }
-        }
-
-        $tax = $subtotal * 0.11;
-        $service = $subtotal * 0.05;
-        $total = $subtotal + $tax + $service;
-
-        // Simpan ke tabel receipts
-        $receipt = Receipt::create([
-            'invoice_number' => strtoupper(Str::random(8)),
-            'table_number' => $table_number,
-            'total_price' => $subtotal,
-            'tax_amount' => $tax,
-            'service_charge' => $service,
-            'grand_total' => $total,
-            'cashier_name' => 'Levi', // bisa diganti nanti
-            'paid_at' => Carbon::now(),
-        ]);
-
-        // Update semua order jadi paid
-        //Order::where('table_number', $table_number)->where('is_paid', false)->update(['is_paid' => true]);
-
-        return redirect()->route('admin.cashier.show', ['table_number' => $table_number])
-            ->with('success', 'Receipt berhasil dibuat.');
-    }
-
     public function payBill(Request $request, $table_number)
     {
-        // 1. Hitung total harga
+        $userId = session('user_id');
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+    
         $orders = Order::where('table_number', $table_number)
             ->where('is_paid', 0)
             ->get();
@@ -115,19 +107,25 @@ class CashierController extends Controller
             });
         });
     
-        // 2. Create receipt
+        // Tangani pembayaran tunai dan QRIS
+        $paymentType = $request->input('payment_type'); // bisa berupa 'cash' atau 'qris'
+        $cashAmount = $paymentType === 'cash' ? $request->input('cash_amount') : null;
+        $change = $paymentType === 'cash' ? $request->input('change') : null;
+    
         $receipt = Receipt::create([
             'invoice_number' => 'INV-' . now()->format('YmdHis'),
             'table_number' => $table_number,
             'total_price' => $totalPrice,
-            'tax_amount' => $totalPrice * 0.1, // misal 10% pajak
-            'service_charge' => $totalPrice * 0.05, // misal 5% service
+            'tax_amount' => $totalPrice * 0.1,
+            'service_charge' => $totalPrice * 0.05,
             'grand_total' => $totalPrice * 1.15,
-            'cashier_name' => 'cashier nilu',
-            'paid_at' => now(),
+            'cashier_name' => $name,
+            'paid_at' => now('Asia/Jakarta'),
+            'payment_type' => $paymentType, // Simpan payment_type
+            'cash_amount' => $cashAmount,  // Simpan cash_amount jika cash
+            'change' => $change,           // Simpan change jika cash
         ]);
     
-        // 3. Update semua orders
         foreach ($orders as $order) {
             $order->update([
                 'is_paid' => 1,
@@ -135,12 +133,12 @@ class CashierController extends Controller
             ]);
         }
     
-        // 4. Update meja jadi tidak aktif
         Table::where('table_number', $table_number)->update(['is_active' => 0]);
     
         return redirect()->route('admin.cashier.show', ['table_number' => $table_number])
             ->with('success', 'Pembayaran berhasil diproses.')
             ->with('receipt_id', $receipt->id);
-
     }
+    
+    
 }

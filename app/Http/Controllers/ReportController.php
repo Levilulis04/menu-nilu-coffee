@@ -8,11 +8,22 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
+
 
 class ReportController extends Controller
 {
     public function index(Request $request)
     {
+        $userId = session('user_id');
+    
+        $role = DB::table('users')->where('id', $userId)->value('role');
+        $name = DB::table('users')->where('id', $userId)->value('name');
+    
+        if ($role !== 'admin') {
+            return redirect('/login');
+        }
+
         $from = $request->input('from', now()->format('Y-m-d'));
         $to = $request->input('to', now()->format('Y-m-d'));
     
@@ -24,7 +35,6 @@ class ReportController extends Controller
             });
         });
     
-        // Data untuk Chart Pendapatan
         $groupedOrders = $orders->groupBy(function($order) {
             return $order->created_at->format('d M');
         });
@@ -38,7 +48,6 @@ class ReportController extends Controller
             });
         })->values();
     
-        // Data untuk Menu Terlaris
         $orderItems = OrderItem::with('menu')
             ->whereHas('order', function($query) use ($from, $to) {
                 $query->whereBetween('created_at', [$from . ' 00:00:00', $to . ' 23:59:59']);
