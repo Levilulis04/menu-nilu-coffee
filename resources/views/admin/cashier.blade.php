@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('content')
-<h2 class="mb-4">Cashier</h2>
+<h2 class="mb-4">Kasir</h2>
 
 <div class="row" id="cashier-container"></div>
 
