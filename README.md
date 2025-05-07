@@ -15,7 +15,7 @@ Dibuat untuk mempermudah pelanggan dalam memesan makanan secara digital tanpa ha
 ## Teknologi yang Digunakan
 
 -   Laravel 11
--   Livewire
+-   Quick Response
 -   MySQL
 -   JavaScript
 
@@ -53,19 +53,13 @@ Dibuat untuk mempermudah pelanggan dalam memesan makanan secara digital tanpa ha
 
 ## Cara Menggunakan
 
+-   Admin membuat QR Code berdasarkan nomor meja.
 -   Pelanggan memindai QR Code yang mengarahkan ke halaman menu.
 -   Pelanggan memilih makanan dan memasukkannya ke keranjang.
 -   Pelanggan mengirim pesanan.
--   Admin/dapur melihat daftar pesanan dan memperbarui status pesanan.
--   Admin dapat mencetak laporan harian pesanan.
-
-## Contoh QR Code
-
-Scan QR Code berikut untuk melihat tampilan menu:
-
-![QR Code](https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://your-website-link.com)
-
-_(Ganti `https://your-website-link.com` dengan link ke halaman menu kamu.)_
+-   Dapur melihat daftar pesanan dan memperbarui status pesanan.
+-   Admin mengkonfirmasi pembayaran
+-   Admin dapat mencetak nota dan laporan harian pesanan.
 
 ## Kontributor
 
