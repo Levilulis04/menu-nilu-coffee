@@ -54,7 +54,7 @@
   <div class="center header">
     <h1 style="font-size:24px;"><strong>KOPI NALA</strong></h1>
     <p>Jl. Sorowajan Baru, Jomblangan, Banguntapan, Bantul, Yogyakarta<br>
-    Telp: 0857 4318 5987 | IG: @Nala_sorowajan</p>
+    Telp: 0857 4312 5987 | IG: @Nala_Kopi</p>
     <br>
     <p><strong>STRUK PEMBAYARAN</strong></p>
   </div>
@@ -110,7 +110,7 @@
   <div class="line"></div>
 
 <div class="footer">
-  <p class="small-text">Kritik Saran Pujian Whatsapp 0857 4318 5987 <br>DM IG @Nala_sorowajan</p>
+  <p class="small-text">Kritik Saran Pujian Whatsapp 0857 4318 5987 <br>DM IG @Nala_Kopi</p>
   <p class="small-text">Terbayar: {{ \Carbon\Carbon::parse($receipt->paid_at)->format('d/m/Y H:i:s') }}</p>
 </div>
 

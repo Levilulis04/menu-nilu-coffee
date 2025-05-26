@@ -4,7 +4,7 @@
 <div class="px-3 pt-3">
 <header class="d-flex align-items-center px-2 py-2 mb-3" style="background-color: #f8f9fa; border-radius: 12px;">
     <div>
-        <h5 class="mb-1 fw-bold" style="color: #038447;">Status Pesaban</h5>
+        <h5 class="mb-1 fw-bold" style="color: #038447;">Status Pesanan</h5>
         <p class="mb-0 text-muted" style="font-size: 0.9rem;">Cek status pesananmu disini</p>
     </div>
 </header>
