@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Nilu</title>
+    <title>Service Nala</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
     .login-card {
@@ -31,7 +31,10 @@
 
 <div class="container">
   <div class="card login-card p-4">
-    <h4 class="text-center mb-4">Login Service Nilu</h4>
+  <div class="text-center">
+    <img src="{{ asset('images/logo_nala.png') }}" width="100" alt="Logo">
+    <h4 class="mb-4 mt-3">Login Service Nala</h4>
+</div>
 
     <form action="{{ route('admin.login') }}" method="POST">
       @csrf

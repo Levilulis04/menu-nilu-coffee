@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Nilu</title>
+  <title>Admin Nala</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -73,7 +73,7 @@
 
   <!-- Navbar with toggle -->
   <div class="navbar-niku d-flex justify-content-between align-items-center">
-    <img src="https://i.ibb.co.com/0p8RTKx2/image-removebg-preview-2.png" width='70' height='30' alt="">
+    <img src="{{ asset('images/logo_nala.png') }}" width='55' height='40' alt="">
     <span id="datetime" class="text-muted small"></span>
   </div>
 
@@ -85,7 +85,7 @@
             <i class="fas fa-cash-register {{ Request::is('admin/cashier') ? '' : 'text-muted' }}"></i> &nbsp Kasir
         </a>
         <a class="nav-link {{ Request::is('admin/menus') ? 'active' : '' }}" href="/admin/menus">
-            <i class="fas fa-concierge-bell {{ Request::is('admin/menus') ? '' : 'text-muted' }}"></i> &nbsp Menu Nilu
+            <i class="fas fa-concierge-bell {{ Request::is('admin/menus') ? '' : 'text-muted' }}"></i> &nbsp Menu Nala
         </a>
         <a class="nav-link {{ Request::is('admin/report') ? 'active' : '' }}" href="/admin/report">
             <i class="fas fa-chart-line {{ Request::is('admin/report') ? '' : 'text-muted' }}"></i> &nbsp Laporan Penjualan
@@ -120,7 +120,7 @@
       toggleTrigger.innerHTML = '&#9776;'; // ☰
       toggleTrigger.classList.add('rotate-anim');
     } else {
-      toggleTrigger.innerText = 'Nilu';
+      toggleTrigger.innerText = 'Nala';
       toggleTrigger.classList.remove('rotate-anim');
     }
   });

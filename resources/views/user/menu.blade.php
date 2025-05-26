@@ -33,7 +33,14 @@
     @endif
 
 <div class="px-3 pt-3">
-    <h4 class="mb-3">Nilu Coffee</h4>
+<header class="d-flex align-items-center px-2 py-2 mb-3" style="background-color: #f8f9fa; border-radius: 12px;">
+    <div>
+        <h5 class="mb-1 fw-bold" style="color: #038447;">Menu</h5>
+        <p class="mb-0 text-muted" style="font-size: 0.9rem;">Silakan pilih menu favoritmu</p>
+    </div>
+</header>
+<br>
+    
 
     @php
         $currentCategory = request()->query('category');

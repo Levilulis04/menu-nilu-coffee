@@ -65,6 +65,7 @@ class CartController extends Controller
         return back()->with('success', 'Item ditambahkan ke keranjang!');
     }
 
+
     public function showCart(Request $request)
     {
         $token = $request->query('token');

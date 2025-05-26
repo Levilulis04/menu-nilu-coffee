@@ -2,7 +2,12 @@
 
 @section('content')
 <div class="px-3 pt-3">
-    <h4 class="mb-3">Pesanan Anda</h4>
+<header class="d-flex align-items-center px-2 py-2 mb-3" style="background-color: #f8f9fa; border-radius: 12px;">
+    <div>
+        <h5 class="mb-1 fw-bold" style="color: #038447;">Keranjang</h5>
+        <p class="mb-0 text-muted" style="font-size: 0.9rem;">Menampilkan pesanan kamu</p>
+    </div>
+</header>
 
     @if(session('success'))
         <div class="alert alert-success" id="success-alert">{{ session('success') }}</div>
@@ -13,7 +18,11 @@
     @endif
 
     @if($cartItems->isEmpty())
-        <p>Anda belum memiliki pesanan.</p>
+    <br><br>
+    <div class="text-center my-5">
+        <img src="https://img.freepik.com/free-vector/shopping-cart-with-bags-gifts-concept-illustration_114360-18775.jpg?t=st=1748223026~exp=1748226626~hmac=167ef9cdb4be270d329fe7666e3346a33b08139673a97c772a8f4f5fd2c58e5a" width=250 alt="">
+        <p class="mb-0 mt-3 text-muted" style="font-size: 0.9rem;">Anda belum memiliki pesanan</p>
+    </div>
     @else
         <div class="list-group">
             @php $grandTotal = 0; @endphp
