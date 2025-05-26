@@ -1,7 +1,8 @@
-# Sistem Pemesanan Menu Digital Kafe Nilu
+# Sistem Pemesanan Menu Digital Kafe Nala
 
-Proyek ini adalah sistem pemesanan menu makanan berbasis web menggunakan QR Code.  
-Dibuat untuk mempermudah pelanggan dalam memesan makanan secara digital tanpa harus antri ke kasir.
+Sistem ini dikembangkan untuk meningkatkan efisiensi layanan di Kafe Nala dengan memanfaatkan teknologi QR Code yang terhubung ke
+sistem pemesanan digital. Tujuannya adalah untuk mengurangi antrian, mempercepat proses pemesanan, dan mempermudah manajemen
+pesanan oleh admin dan dapur.
 
 ## Fitur
 
